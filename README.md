@@ -1,7 +1,7 @@
-# Page Me Please
+# FOLIOBOT FOR TELEGRAM
 
-Here is a [@foliobot](https://t.me/foliobot) — pagination bot for [Telegram](https://t.me/).
-
+> Here is a [@foliobot](https://t.me/foliobot) — pagination bot for [Telegram](https://t.me/).
+> 
 > The [@foliobot](https://t.me/foliobot) can beautify your large Telegram post :postbox: with the pretty pagination keyboard instead the sad _"More.."_.
 
 ![Post with pagination](./app/public/app/public/images/08-Chat-Next-Page.png)
