@@ -41,7 +41,6 @@ Then start `inline query` @foliobot in target chat with link to Telegraph's page
 
 ![Post with cool pagination](./images/09-Chat-@foliobot-telegraph.png)
 
-
 ### Options
 
 Press on middle button `1 · 3` to get the additional options.

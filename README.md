@@ -4,7 +4,7 @@ Here is a [@foliobot](https://t.me/foliobot) — pagination bot for [Telegram](h
 
 > The [@foliobot](https://t.me/foliobot) can beautify your large Telegram post :postbox: with the pretty pagination keyboard instead the sad _"More.."_.
 
-![Post with pagination](./app/public/images/08-Chat-Next-Page.png)
+![Post with pagination](./app/public/app/public/images/08-Chat-Next-Page.png)
 
 ## How to use?
 
@@ -34,6 +34,14 @@ When you chosen adressess for your _Forwarding page_ you will see an `inline req
 
 ![Post with cool pagination](./app/public/images/07-Chat-Paged.png)
 
+### Other way
+
+Use oficial [@telegraph](https://t.me/telegraph) bot to make your page.
+
+Then start `inline query` @foliobot in target chat with link to Telegraph's page.
+
+![Post with cool pagination](./app/public/images/09-Chat-@foliobot-telegraph.png)
+
 ### Options
 
 Press on middle button `1 · 3` to get the additional options.
@@ -42,4 +50,4 @@ Press on middle button `1 · 3` to get the additional options.
 
 ## Donate
 
-[![Paypal](https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png)](https://www.paypal.me/alexeiaccio/5usd)
+[![Paypal](https://www.paypalobjects.com/webstatic/paypalme/app/public/images/pp_logo_small.png)](https://www.paypal.me/alexeiaccio/5usd)
