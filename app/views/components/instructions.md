@@ -1,7 +1,6 @@
-<h1 class='logo'>FOLIOBOT</h1>
 
-Here is a [@foliobot](https://t.me/foliobot) — [Telegram](https://t.me/) bot for messaging with pagination.
-
+> Here is a [@foliobot](https://t.me/foliobot) — [Telegram](https://t.me/) bot for messaging with pagination.
+>
 > The [@foliobot](https://t.me/foliobot) can beautify your large Telegram post with the pretty pagination keyboard instead the sad _"More.."_.
 
 ![Post with pagination](./images/08-Chat-Next-Page.png)
