@@ -5,26 +5,8 @@ body
   padding: 0
   margin: 0
 
-%focus
-  &::before
-    content: ''
-    position: absolute
-    top: 0
-    left: -171px
-    width: 120px
-    text-align: right
-    color: #eee
-    padding: 10px 15px
-    border-right: 4px solid #eee
-  &.focused::before
-    color: #ccc
-    border-right-color: #ccc
-
 a
   color: #00B7FF
-
-p
-  padding-bottom: 21px
 
 blockquote
   margin: 21px 0
@@ -36,33 +18,16 @@ code
   background-color: #eee
   border-radius: 2px
 
-footer
-  margin-top: 50px
-  padding: 100px 0
-  background-color: #ccc
-
 .container
   margin: 21px auto
+  padding: 0
   width: 100%
-  max-width: 650px
   position: relative
 
-.logo
-  margin: 40px -5px
-  padding-left: 62px
-  &:before
-    content: ''
-    position: absolute
-    top: -5px
-    left: -5px
-    display: block
-    width: 50px
-    height: 50px
-    border-radius: 50%
-    background: 
-      position: center 
-      size: cover 
-      repeat: no-repeat
-      image: url('../images/logo.png')
+@media (min-width: 650px)
+  .container
+    max-width: 600px
+
+@import components/index
 
 @import components/edit

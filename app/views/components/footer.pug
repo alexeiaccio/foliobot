@@ -1,2 +1,11 @@
 footer
-  .container Footer here!
+  .container
+    h3 Take me know what you think
+    form#message-form
+      .form-group
+        label(for="user") Your Telegram's username
+        input#user(type="text", name="user" placeholder="@username")
+      .form-group
+        label(for="mesage") Your message
+        textarea#mesage(type="text", name="mesage" rows="3" placeholder="Type your message...")
+      button.button.visible#form-button(type="submit") Send

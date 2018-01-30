@@ -72,19 +72,6 @@ const headerOptions = {
 function focusHandler (editor, header) {
   if (editor.hasFocus()) {
     editor.container.classList.add('focused')
-    /* let isFormat = editor.getFormat()
-    if(Object.keys(isFormat).length !== 0) {
-      let toolbar = editor.getModule('toolbar')
-      toolbar.controls.forEach(control => {
-        let classes = control[1]
-        if (!classes.classList.contains('ql-active')) {
-          classes.disabled = true
-          console.log(classes)
-        } else {
-          classes.disabled = false
-        }
-      })
-    } */
   } else {
     editor.container.classList.remove('focused')
   }
@@ -155,7 +142,7 @@ const saveHandler = (e) => {
           saveButton.textContent='Save'
           saveButton.classList.remove('success')
           saveButton.disabled = false
-        }, 2000);
+        }, 2000)
       }else {
         while (article.firstChild) {
           article.removeChild(article.firstChild)
@@ -193,11 +180,11 @@ function forwardHandler(e) {
         setTimeout(function() {
           forwardButton.classList.remove('continue')
           forwardButton.classList.remove('visible')
-        }, 4000);
+        }, 4000)
         setTimeout(function() {
           forwardButton.textContent='Forward'
           forwardButton.disabled = false
-        }, 5000);
+        }, 5000)
       }
     }
   })

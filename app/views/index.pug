@@ -3,9 +3,15 @@ extends layout
 block head-content
 
 block content
-  h1(class='logo') FOLIOBOT FOR TELEGRAM
+  h1(class='logo') #{title}
   .container.md.
    !{md}
 
 block footer
   include components/footer.pug
+  #tgme_frame_cont
+block scripts
+  script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
+  script.
+    const botToken = '!{bot_token}'
+  script(src="/scripts/index.js")

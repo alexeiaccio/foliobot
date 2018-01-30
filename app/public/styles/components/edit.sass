@@ -1,3 +1,18 @@
+%focus
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: -171px
+    width: 120px
+    text-align: right
+    color: #eee
+    padding: 10px 15px
+    border-right: 4px solid #eee
+  &.focused::before
+    color: #ccc
+    border-right-color: #ccc
+
 .h1
   font-weight: 300
   position: relative

@@ -20,7 +20,11 @@ const text = fs.readFileSync(path.join(__dirname, '../views/components/instructi
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { md: marked(text) })
+  res.render('index', { 
+    title: 'Foliobot for Telegram', 
+    md: marked(text),
+    bot_token: process.env.TELEGRAM_TOKEN
+  })
 })
 
 module.exports = router
