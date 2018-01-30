@@ -1,0 +1,31 @@
+extends layout
+
+block head-content
+  link(href="//cdn.quilljs.com/1.3.4/quill.bubble.css" rel="stylesheet")
+
+block content
+  h1.h1#title= title
+  .link
+    a(href=`http://telegra.ph/${path}` target='_blank') Open in Telegraph
+  //-
+  // Article editor
+  .article#article 
+    em Fetching content&hellip;
+  //-
+  // Side bar
+  aside.sidebar
+    button.button#save-button Save
+    button.button#forvard-button Forfard
+  //-
+  script(src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous")
+  script(src="//cdn.quilljs.com/1.3.4/quill.min.js")
+  |
+  script.
+    const thatPath = '!{path}'
+    const userId = '!{user_id}'
+    const botToken = '!{bot_token}'
+    const accessToken = '!{access_token}'
+    const pageTitle = '!{title}'
+  |
+  script(src="/scripts/edit.js")
+    

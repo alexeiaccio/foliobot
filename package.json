@@ -1,0 +1,37 @@
+{
+  "name": "foliobot",
+  "version": "0.1.9",
+  "description": "Here is a @foliobot — pagination bot for Telegram.",
+  "keywords": [
+    "telegram",
+    "bot"
+  ],
+  "author": "Alexei Accio <alexei.accio@gmail.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexeiaccio/foliobot.git"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-parser": "~1.4.3",
+    "express": "4.16.2",
+    "marked": "^0.3.12",
+    "mongoose": "^4.13.7",
+    "node-fetch": "^1.7.3",
+    "node-sass-middleware": "0.9.8",
+    "pug": "2.0.0-beta11",
+    "serve-favicon": "~2.4.5",
+    "telegra.ph": "^0.2.0",
+    "telegraf": "^3.16.4",
+    "typograf": "^6.6.1"
+  }
+}

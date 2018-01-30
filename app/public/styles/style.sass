@@ -1,0 +1,150 @@
+body
+  font-family: 'Lucida', Arial, sans-serif
+  color: #333333
+  font-size: 18px
+  padding: 0
+  margin: 0
+
+%focus
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: -171px
+    width: 120px
+    text-align: right
+    color: #eee
+    padding: 10px 15px
+    border-right: 4px solid #eee
+  &.focused::before
+    color: #ccc
+    border-right-color: #ccc
+
+a
+  color: #00B7FF
+
+p
+  padding-bottom: 21px
+
+blockquote
+  margin: 21px 0
+  padding: 0 40px 
+  border-left: 4px solid #eee
+
+code
+  padding: 0 7px
+  background-color: #eee
+  border-radius: 2px
+
+footer
+  margin-top: 50px
+  padding: 100px 0
+  background-color: #ccc
+
+.container
+  margin: 21px auto
+  width: 100%
+  max-width: 650px
+  position: relative
+
+.logo
+  margin: 40px -5px
+  padding-left: 62px
+  &:before
+    content: ''
+    position: absolute
+    top: -5px
+    left: -5px
+    display: block
+    width: 50px
+    height: 50px
+    border-radius: 50%
+    background: 
+      position: center 
+      size: cover 
+      repeat: no-repeat
+      image: url('../images/logo.png')
+
+.h1
+  font-weight: 300
+  position: relative
+  @extend %focus
+  &::before
+    font-size: 24px
+    line-height: 40px
+    content: 'Title'
+  & .ql-editor.ql-blank::before
+    font-size: 24px
+    line-height: 60px
+    left: 0
+  p
+    white-space: nowrap
+    font-size: 36px
+
+.link
+  margin-top: 21px
+  font-size: 14px;
+
+
+.article
+  margin: 37px 0
+  font: 18px "Georgia", serif
+  color: #ccc
+  padding: 10px 15px
+  position: relative
+  @extend %focus
+  &::before
+    font-size: 16px
+    line-height: 28px
+    content: 'Content'
+
+.ql-editor
+  padding: 0
+  overflow: visible
+  color: #333
+  &:before
+    color: #666
+  
+
+.sidebar
+  position: absolute
+  top: 130px
+  left: calc(50% + 325px)
+
+.button
+  display: block
+  margin-bottom: 12px
+  font-weight: 600
+  font-style: normal
+  font-size: 17px
+  color: #000
+  text-decoration: none
+  border: 2px solid #333
+  border-radius: 16px
+  text-transform: uppercase
+  padding: 4px 12px
+  margin: 0 0 15px
+  background-color: #fff
+  cursor: pointer
+  transition: all .4s ease
+  visibility: hidden
+  opacity: 0
+  outline: none !important
+
+.visible
+  visibility: visible
+  opacity: 1
+
+.saving
+  color: #404040
+  border: 2px solid #404040
+  background-color: #cfcfcf
+
+.success
+  color: #2abe3d
+  border: 2px solid #2abe3d
+
+.continue
+  color: #ffffff
+  background-color: #5682a3
+  border: 2px solid #5682a3

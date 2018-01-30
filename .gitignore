@@ -56,4 +56,11 @@ typings/
 
 # dotenv environment variables file
 .env
+*.dev
+.DS_Store
 
+# Docker
+Dockerfile
+docker-compose.yml
+
+package-lock.*
