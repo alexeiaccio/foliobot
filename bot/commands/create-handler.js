@@ -26,7 +26,7 @@ const createHandler = ({ chat, replyWithHTML }) => {
     .then(page => {
       replyWithHTML(`<strong>Follow this way</strong> ⬇️`, Extra.markup(
         Markup.inlineKeyboard([ 
-          [ Markup.urlButton('1. Edit & save 💾 page in Web ', `http://foliobot.accio.pro/edit/${page.path}&user_id=${chat.id}&access_token=${cb.user.token}`) ],
+          [ Markup.urlButton('1. Edit & save 💾 page in Web ', `https://foliobot.accio.pro/edit/${page.path}&user_id=${chat.id}&access_token=${cb.user.token}`) ],
           [ Markup.switchToChatButton('2. Forward your page 📣', page.path.toString()) ]
         ])
       ))

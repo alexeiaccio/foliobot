@@ -25,7 +25,7 @@ const getContent = text => {
 const forwardKeyboard = ( page, chat, cb ) => Extra.markup(
   Markup.inlineKeyboard([
     [ Markup.switchToChatButton('Forward page', page.path.toString()) ], 
-    [ Markup.urlButton('Edit page in Web', `http://foliobot.accio.pro/edit/${page.path}&user_id=${chat.id}&access_token=${cb.user.token}`) ]
+    [ Markup.urlButton('Edit page in Web', `https://foliobot.accio.pro/edit/${page.path}&user_id=${chat.id}&access_token=${cb.user.token}`) ]
   ])
 )
   

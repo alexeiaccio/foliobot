@@ -8,7 +8,7 @@ const getMyPages = (pages, id, token) => {
   let str = ''
   pages.forEach(page => 
     str += 
-    `<a href='http://foliobot.accio.pro/edit/${page.path}&user_id=${id}&access_token=${token}'>${page.title}</a>\n${page.description.slice(0, 40)}...\n\n`
+    `<a href='https://foliobot.accio.pro/edit/${page.path}&user_id=${id}&access_token=${token}'>${page.title}</a>\n${page.description.slice(0, 40)}...\n\n`
   )
   return str
 }
