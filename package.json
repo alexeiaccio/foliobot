@@ -1,7 +1,7 @@
 {
   "name": "foliobot",
-  "version": "0.1.9",
-  "description": "Here is a @foliobot — pagination bot for Telegram.",
+  "version": "0.2.0",
+  "description": "There is a @foliobot — pagination bot for Telegram.",
   "keywords": [
     "telegram",
     "bot"
