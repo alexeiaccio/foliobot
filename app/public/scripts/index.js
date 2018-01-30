@@ -18,6 +18,8 @@ function formHandler(e) {
         formButton.textContent='Sent'
         formButton.classList.remove('saving')
         formButton.classList.add('success')
+        userInput.value = ''
+        messageInput.value = ''
         setTimeout(function() {
           formButton.textContent='Send'
           formButton.classList.remove('success')
