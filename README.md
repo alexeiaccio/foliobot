@@ -40,6 +40,6 @@ Press on middle button `1 · 3` to get the additional options.
 
 ![Additional options](./app/public/images/07-Chat-AdditionOptions.png)
 
-## Develop
+## Donate
 
-🚧 Under construction 🚧
+[![Paypal](https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png)](https://www.paypal.me/alexeiaccio/5usd)

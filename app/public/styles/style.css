@@ -107,6 +107,17 @@ textarea {
   .form-group {
     margin-bottom: 21px; } }
 
+.donate {
+  margin-top: 21px; }
+
+.paypal {
+  display: block;
+  margin-top: 12px;
+  background-image: url(https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png);
+  background-size: 100%;
+  width: 119px;
+  height: 29px; }
+
 .h1::before, .article::before {
   content: '';
   position: absolute;
