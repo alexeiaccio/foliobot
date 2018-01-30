@@ -19,7 +19,7 @@ const myPages = ({ chat, replyWithHTML }) => {
     client.getPageList(null, 0, 5)
     .then(pages => {
       let message = ''
-      let links = getMyPages(pages.pages, chat.id, client.token)
+      let links = getMyPages(pages.pages, chat.id, cb.user.token)
       message = links
       message += `<strong>Total pages: ${pages.total_count.toString()}</strong>`
       replyWithHTML(
