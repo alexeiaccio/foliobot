@@ -4,7 +4,7 @@
 > 
 > The [@foliobot](https://t.me/foliobot) can beautify your large Telegram post :postbox: with the pretty pagination keyboard instead the sad _"More.."_.
 
-![Post with pagination](./app/public/app/public/images/08-Chat-Next-Page.png)
+![Post with pagination](./app/public/images/08-Chat-Next-Page.png)
 
 ## How to use?
 
