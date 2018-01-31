@@ -50,5 +50,4 @@ Press on middle button `1 · 3` to get the additional options.
 
 ## Donate
 
-![Paypal](https://www.paypalobjects.com/webstatic/paypalme/app/public/images/pp_logo_small.png)
-[Paypal](https://www.paypal.me/alexeiaccio/5usd)
+[![Paypal](https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_74x46.jpg)](https://www.paypal.me/alexeiaccio/5usd)
