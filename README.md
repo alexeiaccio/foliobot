@@ -8,7 +8,7 @@
 
 ## How to use?
 
-First you need to press `Start` in [@foliobot](https://t.me/foliobot) chat. And get a Telegraph account (_bot make it automaticaly_).
+First you need to press `Start` in [@foliobot](https://t.me/foliobot) chat. And get a Telegraph account (_bot make it automatically. It's not corresponing to oficial [@telegraph](https://t.me/telegraph) accounts_).
 
 ![Start page](./app/public/images/01-Bot-Start.png)
 
@@ -26,7 +26,7 @@ Then you can start in this several ways.
 
 ### Second step
 
-When you chosen adressess for your _Forwarding page_ you will see an `inline request` in chat with him/her. Press on it!
+When you chosen addressee for your _forwarding page you will see an `inline request` in chat with him/her. Press on it!
 
 ![Inline query](./app/public/images/06-Chat-@foliobot.png)
 
