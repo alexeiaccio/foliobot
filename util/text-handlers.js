@@ -1,19 +1,26 @@
 const PAGE_LENGHT = 600
 
-const findBreakTag = str => {
-  let endRegExp = /(<(\/??)(\w+)[\s.*]?>)[^>]*?$/
-  let startRegExp = /^.*?[^<]?(<(\/??)(\w+).*?>)/
-  
+let imgRegExp = /<img\s*?src="(.*?)"\/>/
+let endRegExp = /(<(\/??)(\w+)[\s.*]?>)[^>]*?$/
+let startRegExp = /^.*?[^<]?(<(\/??)(\w+).*?>)/
+
+const findBreakTag = str => {  
   matchEnd = endRegExp.exec(str)
-  matchStart = startRegExp.exec(str)
-  
+  matchStart = startRegExp.exec(str)  
   if (matchEnd[2] !== '/') str += `</${matchEnd[3]}>`
   if (matchStart[2] === '/') str = `<${matchStart[3]}>` + str
   return str
 }
 
-const getMaxPage = (text) => 
-    Math.floor(text.split('').length / PAGE_LENGHT)
+const getImg = (str) => {
+  matchImg = imgRegExp.exec(str)
+  let index = str.indexOf(matchImg[0])
+  return `${str.slice(0, index)}<a href='${matchImg[1]}'>&#8204;</a>${str.slice(index+matchImg[0].length)}`  
+}
+
+const getMaxPage = (text) => {
+  return Math.floor(text.split('').length / PAGE_LENGHT)
+}
 
 const getPart = (text) => {
   let parts = []
@@ -30,11 +37,14 @@ const getPart = (text) => {
   return parts
 }
 
-const getText = (text, number) => {
+const getText = (text, index) => {
   let parts = getPart(text)
-  part = parts[(number - 1)]
-  console.log(findBreakTag(part))
-  return findBreakTag(part)
+  part = parts[(index - 1)]
+  if(imgRegExp.exec(part)) {
+    return getImg(findBreakTag(part))
+  } 
+  
+  return findBreakTag(parts[(index - 1)])
 }
 
 const getString = text => {

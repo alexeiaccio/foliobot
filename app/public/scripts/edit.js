@@ -9,12 +9,12 @@ function domToNode(domNode) {
   nodeElement.tag = domNode.tagName.toLowerCase()
   for (let i = 0; i < domNode.attributes.length; i++) {
     var attr = domNode.attributes[i]
-    //if (attr.name == 'href' || attr.name == 'src') {
+    if (attr.name == 'href' || attr.name == 'src') {
       if (!nodeElement.attrs) {
         nodeElement.attrs = {}
       }
       nodeElement.attrs[attr.name] = attr.value
-    //}
+    }
   }
   if (domNode.childNodes.length > 0) {
     nodeElement.children = []
@@ -23,7 +23,6 @@ function domToNode(domNode) {
       nodeElement.children.push(domToNode(child))
     }
   }
-  console.log(nodeElement)
   return nodeElement
 }
 
