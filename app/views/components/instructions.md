@@ -46,3 +46,5 @@ Then start `inline query` @foliobot in target chat with link to Telegraph's page
 Press on middle button `1 · 3` to get the additional options.
 
 ![Additional options](./images/07-Chat-AdditionOptions.png)
+
+If you forward this folio from the menu it have been forwarded with current page.

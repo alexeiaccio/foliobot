@@ -9,7 +9,7 @@ const getOptions = ( current, maxpage ) => {
   return Markup.inlineKeyboard([
     [
       Markup.urlButton('Web view', `http://telegra.ph/${thatPath}`),
-      Markup.switchToChatButton('Forward page', thatPath.toString())
+      Markup.switchToChatButton('Forward page', `${thatPath}?${currentPage}`)
     ], [
       Markup.callbackButton(`↪️ Back`, `${thatPath}?${currentPage}`)
     ]

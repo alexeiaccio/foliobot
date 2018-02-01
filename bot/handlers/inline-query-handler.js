@@ -4,16 +4,20 @@ const { getMaxPage, getText, getString } = require('../../util/text-handlers')
 const jsonxml = require('../../util/json-to-xml')
 const getPagination = require('../helpers/get-pagination')
 const options = require('../options')
-
+const matchUrl = require('../../util/match-url')
   
 const inlineQueryHandler = ({ update, answerInlineQuery }) => {
   let inlineQuery = update.inline_query
   let query = inlineQuery.query
   let thatPath = ''
+  let currentPage = ''
   if(query.length > 0) {
     if (query.indexOf('http') == 0) {
       let pathRegExp = /(http[s]?:\/\/)?([^\/\s]+\/)(.*)/g
       thatPath = pathRegExp.exec(query)[3]
+    } else if (query.indexOf('?')>=0) {
+      currentPage = parseInt(matchUrl.getQuery(query))
+      thatPath = matchUrl.getBase(query)
     } else thatPath = query
     client.getPage(thatPath, true)
     .then(page => {
@@ -30,7 +34,7 @@ const inlineQueryHandler = ({ update, answerInlineQuery }) => {
           title: !page.title.includes('FolioBot') ? page.title : 'Page me!', 
           description: page.description,
           input_message_content: Object.assign({},
-            { message_text: getText(text, 1) },
+            { message_text: getText(text, currentPage || 1) },
             options.parse_mode
           ),
           reply_markup: getPagination(`${query}?1`, getMaxPage(text))

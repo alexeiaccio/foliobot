@@ -48,6 +48,8 @@ Press on middle button `1 · 3` to get the additional options.
 
 ![Additional options](./app/public/images/07-Chat-AdditionOptions.png)
 
+If you forward this folio from the menu it have been forwarded with current page.
+
 ## Donate
 
 [![Paypal](https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_74x46.jpg)](https://www.paypal.me/alexeiaccio/5usd)
