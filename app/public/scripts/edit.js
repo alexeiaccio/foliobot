@@ -9,12 +9,12 @@ function domToNode(domNode) {
   nodeElement.tag = domNode.tagName.toLowerCase()
   for (let i = 0; i < domNode.attributes.length; i++) {
     var attr = domNode.attributes[i]
-    if (attr.name == 'href' || attr.name == 'src') {
+    //if (attr.name == 'href' || attr.name == 'src') {
       if (!nodeElement.attrs) {
         nodeElement.attrs = {}
       }
       nodeElement.attrs[attr.name] = attr.value
-    }
+    //}
   }
   if (domNode.childNodes.length > 0) {
     nodeElement.children = []
@@ -23,6 +23,7 @@ function domToNode(domNode) {
       nodeElement.children.push(domToNode(child))
     }
   }
+  console.log(nodeElement)
   return nodeElement
 }
 
@@ -61,7 +62,7 @@ const editorOptions = {
   theme: 'bubble',
   placeholder: 'Place text here ...',
   modules: {
-    toolbar: [['bold', 'italic'], ['link'], ['code']]
+    toolbar: [['bold', 'italic'], ['link', 'image'], ['code']]
   }
 }
 
@@ -90,13 +91,12 @@ $.ajax('https://api.telegra.ph/getPage', {
   type: 'GET',
   dataType: 'json',
   success: function(data) {    
-    if (data.ok == true) {      
+    if (data.ok == true) {
       while (article.firstChild) {
         article.removeChild(article.firstChild)
       }
-      if (data.result.content[0].children[0] !== 'Place text here ...') {
-        article.appendChild(nodeToDom({children: data.result.content}))  
-      }
+      article.appendChild(nodeToDom({children: data.result.content}))
+      // Quill
       let editor = new Quill(article, editorOptions)
       let header = new Quill(title, headerOptions)      
       document.addEventListener('click', () => focusHandler(editor, header))

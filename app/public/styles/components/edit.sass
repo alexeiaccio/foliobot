@@ -26,7 +26,6 @@
     line-height: 60px
     left: 0
   p
-    white-space: nowrap
     font-size: 36px
 
 .link
@@ -58,6 +57,13 @@
   position: absolute
   top: 130px
   left: calc(50% + 325px)
+
+@media (max-width: 650px)
+  .sidebar
+    position: relative
+    left: initial
+    top: initial
+    padding: 21px
 
 .button
   display: block
