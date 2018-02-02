@@ -100,7 +100,7 @@ const getText = (text, index) => {
   return findBreakTag(parts[(index - 1)])
 }
 
-console.log(getText(strD, 4))
+//console.log(getText(strD, 4))
 //getText(strB, 1)
 //getText(strC, 1)
 //getText(strD, 1)
@@ -116,8 +116,25 @@ const getString = text => {
     .replace(/<\/?p>/g, ' ')
 }
 
+// Test sesssion
+
+const getPage = (session, id, text, current) => {
+  if (!session.page || session.page.id !== id) {
+    newSession = Object.assign({}, session)
+    let page = {
+      id: id,
+      max_page: 2,
+      parts: [text.split(0, 300), text.split(300)]
+    }    
+    newSession.page  = page
+  }
+  session = newSession
+  return session.page.parts[current-1]
+}
+
 module.exports = {
   getMaxPage,
   getText,
-  getString
+  getString,
+  getPage
 }

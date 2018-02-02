@@ -29,7 +29,7 @@ const forwardKeyboard = ( page, chat, cb ) => Extra.markup(
   ])
 )
   
-const messageHandler = ({ chat, message, replyWithHTML }) => {
+const messageHandler = ({ chat, message, replyWithHTML, session }) => {
   let instruction = 'Press the button to forward your message'
   let messageText = message.text.toString()
 
@@ -65,7 +65,7 @@ const messageHandler = ({ chat, message, replyWithHTML }) => {
           } else replyWithHTML('This text is too short – you can send it as is it (^_^)') 
         })
       })
-    } else replyWithHTML('Your text is too short – you can send it as is it (^_^)')    
+    } replyWithHTML('Your text is too short – you can send it as is it (^_^)')    
   }
 }
 

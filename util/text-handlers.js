@@ -56,8 +56,26 @@ const getString = text => {
     .replace(/<\/?p>/g, ' ')
 }
 
+// Test sesssion
+
+const getPage = (session, id, text, current) => {
+  /* if (!session.page || session.page.id !== id) {
+    newSession = Object.assign({}, session)
+    let page = {
+      id: id,
+      max_page: 2,
+      parts: [text.split(0, 300), text.split(300)]
+    }    
+    newSession.page  = page
+  }
+  session = newSession
+  return session.page.parts[current-1] */
+  console.log(session)
+}
+
 module.exports = {
   getMaxPage,
   getText,
-  getString
+  getString,
+  getPage
 }

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
 const MongoSession = require('telegraf-session-mongo')
+const Router = require('telegraf/router')
+const Extra = require('telegraf/extra')
 
 const app = require('./app')
 const bot = require('./bot')
@@ -36,11 +38,43 @@ mongoose.connect(uri, {useMongoClient: true}, (err, res) => {
   })
   // BOT
   bot.use(
-    session.middleware,
-    require('./bot/commands'),
-    require('./bot/actions'),
-    require('./bot/handlers')
-  )  
+    session.middleware
+    //require('./bot/commands'),
+    //require('./bot/actions'),
+    //require('./bot/handlers')
+  )
+
+
+  const markup = Extra
+    .HTML()
+    .markup((m) => m.inlineKeyboard([
+      m.callbackButton('Plus', 'add'),
+      m.callbackButton('Clear', 'clear')
+    ]))
+
+  const counter = new Router(({ callbackQuery }) => {
+    if (!callbackQuery.data) {
+      return
+    }
+    return { route: callbackQuery.data }
+  })
+  counter.on('add', (ctx) => {
+    ctx.session.counter++
+    console.log(ctx.session)
+    ctx.editMessageText(`Value: <b>${ctx.session.counter}</b>`, markup).catch(() => undefined)
+  })
+  counter.on('clear', (ctx) => {
+    ctx.session.counter = 0
+    ctx.editMessageText(`Value: <b>${ctx.session.counter}</b>`, markup).catch(() => undefined)
+  })
+  counter.otherwise((ctx) => ctx.editMessageText(`Woop! ${ctx.session.counter}`, markup).catch(() => undefined))
+
+  bot.start((ctx) => {
+    ctx.session.counter = ctx.session.counter || 0
+    return ctx.reply(`Value: <b>${ctx.session.counter}</b>`, markup)
+  })
+
+  bot.on('callback_query', counter)
   
   bot.startPolling()
 })
