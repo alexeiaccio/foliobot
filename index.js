@@ -1,4 +1,5 @@
-const session = require('telegraf/session')
+const mongoose = require("mongoose")
+const MongoSession = require('telegraf-session-mongo')
 
 const app = require('./app')
 const bot = require('./bot')
@@ -20,12 +21,27 @@ if (app.get('env') === 'development') {
 app.set('port', PORT)  
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-// BOT
-bot.use(
-  session(),
-  require('./bot/commands'),
-  require('./bot/actions'),
-  require('./bot/handlers')
-)
+// DB SESSION STORAGE
+const uri = process.env.MONGODB_URI
 
-bot.startPolling()
+mongoose.connect(uri, {useMongoClient: true}, (err, res) => {
+  if (err) {
+    console.log('ERROR sessioning with: ' + uri + '. ' + err)
+  } else {
+    console.log('Succeeded sessioned with: ' + uri)
+  }
+}).then(client => {
+  const session = new MongoSession(client, {
+    ttl: 3600
+  })
+  // BOT
+  bot.use(
+    session.middleware,
+    require('./bot/commands'),
+    require('./bot/actions'),
+    require('./bot/handlers')
+  )  
+  
+  bot.startPolling()
+})
+

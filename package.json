@@ -33,6 +33,7 @@
     "serve-favicon": "~2.4.5",
     "telegra.ph": "^0.2.0",
     "telegraf": "^3.16.4",
+    "telegraf-session-mongo": "^1.1.0",
     "typograf": "^6.6.1"
   },
   "devDependencies": {

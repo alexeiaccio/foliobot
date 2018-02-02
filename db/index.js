@@ -3,13 +3,13 @@ const mongoose = require("mongoose")
 
 const uri = process.env.MONGODB_URI
 
-mongoose.connect(uri, {useMongoClient: true}, function (err, res) {
+mongoose.connect(uri, {useMongoClient: true}, (err, res) => {
     if (err) {
         console.log('ERROR connecting to: ' + uri + '. ' + err)
     } else {
         console.log('Succeeded connected to: ' + uri)
     }
-})  
+})
 
 mongoose.Promise = global.Promise
 
