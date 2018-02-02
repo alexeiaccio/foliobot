@@ -12,5 +12,10 @@ const createHandler = require('./create-handler')
 composer.command('start', startHandler)
 composer.command('help', helpHandler)
 composer.command('create', createHandler)
+composer.command('session', (ctx) => {
+  ctx.session.counter = ctx.session.counter || 0
+  ctx.session.counter++
+  return ctx.reply(`Message counter:${ctx.session.counter}`)
+})
 
 module.exports = composer

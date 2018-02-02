@@ -1,3 +1,5 @@
+const session = require('telegraf/session')
+
 const app = require('./app')
 const bot = require('./bot')
 
@@ -20,6 +22,7 @@ app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 // BOT
 bot.use(
+  session(),
   require('./bot/commands'),
   require('./bot/actions'),
   require('./bot/handlers')
