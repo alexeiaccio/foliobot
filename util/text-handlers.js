@@ -58,19 +58,19 @@ const getString = text => {
 
 // Test sesssion
 
-const getPage = (session, id, text, current) => {
-  /* if (!session.page || session.page.id !== id) {
-    newSession = Object.assign({}, session)
+const getPage = (ctx, text) => {
+  let id = ctx.update.callback_query.inline_message_id
+  let current = ctx.state.current
+  /* if (!ctx.session.page || ctx.session.page.id !== id) {
     let page = {
       id: id,
       max_page: 2,
       parts: [text.split(0, 300), text.split(300)]
     }    
-    newSession.page  = page
-  }
-  session = newSession
-  return session.page.parts[current-1] */
-  console.log(session)
+    ctx.session.page = page
+  } */
+  //return ctx.session.page.parts[current-1]
+  console.log(id, current, ctx.session)
 }
 
 module.exports = {

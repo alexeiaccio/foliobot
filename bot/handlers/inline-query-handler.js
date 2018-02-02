@@ -6,8 +6,8 @@ const getPagination = require('../helpers/get-pagination')
 const options = require('../options')
 const matchUrl = require('../../util/match-url')
   
-const inlineQueryHandler = ({ update, answerInlineQuery }) => {
-  let inlineQuery = update.inline_query
+const inlineQueryHandler = (ctx) => {
+  let inlineQuery = ctx.update.inline_query
   let query = inlineQuery.query
   let thatPath = ''
   let currentPage = ''
@@ -27,7 +27,7 @@ const inlineQueryHandler = ({ update, answerInlineQuery }) => {
       }
       text += getString(jsonxml(page.content))
       // Let's return a single tooltip
-      return answerInlineQuery(
+      return ctx.answerInlineQuery(
         [{
           type: 'article',
           id: inlineQuery.id, 

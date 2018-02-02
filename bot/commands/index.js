@@ -9,7 +9,10 @@ const helpHandler = require('./help-handler')
 const createHandler = require('./create-handler')
 
 // Commands
-composer.command('start', startHandler)
+composer.command('start', (ctx) => {
+  ctx.session.pages = ctx.session.pages || []
+  return ctx.reply(`Pages: <b>${ctx.session.pages}</b>`)
+})
 composer.command('help', helpHandler)
 composer.command('create', createHandler)
 

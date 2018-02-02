@@ -38,14 +38,14 @@ mongoose.connect(uri, {useMongoClient: true}, (err, res) => {
   })
   // BOT
   bot.use(
-    session.middleware
-    //require('./bot/commands'),
-    //require('./bot/actions'),
-    //require('./bot/handlers')
+    session.middleware,
+    require('./bot/commands'),
+    require('./bot/actions'),
+    require('./bot/handlers')
   )
 
 
-  const markup = Extra
+  /* const markup = Extra
     .HTML()
     .markup((m) => m.inlineKeyboard([
       m.callbackButton('Plus', 'add'),
@@ -74,7 +74,7 @@ mongoose.connect(uri, {useMongoClient: true}, (err, res) => {
     return ctx.reply(`Value: <b>${ctx.session.counter}</b>`, markup)
   })
 
-  bot.on('callback_query', counter)
+  bot.on('callback_query', counter) */
   
   bot.startPolling()
 })
