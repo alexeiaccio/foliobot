@@ -48,10 +48,6 @@ const getPart = (text) => {
   return parts
 }
 
-const getText = (text, index) => {
-  let parts = getPart(text)
-  return parts[(index - 1)]
-}
 
 const getString = text => {
   let brRegExp = /(<br\/>)+/g
@@ -86,8 +82,7 @@ const getPage = (ctx, text) => {
 }
 
 module.exports = {
-  getMaxPage,
-  getText,
+  getPart,
   getString,
   getPage
 }

@@ -1,7 +1,7 @@
 const Telegraph = require('telegra.ph')
 const Router = require('telegraf/router')
 const client = new Telegraph()
-const { getMaxPage, getText, getString, getPage } = require('../../util/text-handlers')
+const { getString, getPage } = require('../../util/text-handlers')
 const jsonxml = require('../../util/json-to-xml')
 const matchUrl = require('../../util/match-url')
 const getPagination = require('../helpers/get-pagination')
