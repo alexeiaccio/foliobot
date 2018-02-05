@@ -34,7 +34,7 @@ const inlineQueryHandler = (ctx) => {
           title: !page.title.includes('FolioBot') ? page.title : 'Page me!', 
           description: page.description,
           input_message_content: Object.assign({},
-            { message_text: getText(text, currentPage || 1) },
+            { message_text: getText(text, 1) },
             options.parse_mode
           ),
           reply_markup: getPagination(`${query}?1`, getMaxPage(text))

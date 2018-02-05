@@ -11,6 +11,7 @@ let strC = `<strong>@foliobot for Telegram</strong> ¶  <em>Here is a @foliobot 
 let strD = `<strong>@foliobot for Telegram</strong> ¶  <em>Here is a @foliobot — Telegram bot for messaging with pagination.</em>  ¶  <img src="https://github.com/alexeiaccio/foliobot/raw/master/app/public/images/logo.png"/>  ¶  <em>The @foliobot can beautify your large Telegram post with the pretty pagination keyboard instead the sad "More..".</em>  ¶  <img src="https://github.com/alexeiaccio/logo.png"/>  ¶  <em>The @foliobot can beautify your large Telegram post with the pretty pagination keyboard instead the sad "More..".</em><em>The @foliobot can beautify your large Telegram post with the pretty pagination keyboard instead the sad "More..".</em>  ¶  <strong>How to use?</strong>  First you needto press <code>Start </code>in @foliobot chat. And get a Telegraph account (bot make it automatically).  ¶  Then you can start in this several ways.  ¶  <img src="https://github.com/alexeiaccio/master/logo.png"/>  <em>The @foliobot can beautify your large Telegram post with the pretty pagination keyboard instead the sad "More..".</em>  ¶  <strong>How to use?</strong>  First you needto press <code>Start </code>in @foliobot chat. And get a Telegraph account (bot make it automatically).  ¶  Then you can start in this several ways.  ¶  <strong>First step</strong>  1. Send any text above 600 signs lenght in @foliobot chat.  2. Forward large message from any chat to @foliobot.  3. Send command <code>/create</code> in @foliobot chat and follow the instructions.  4. Send Telegraph link in @foliobot chat.  ¶`
 let strE = `<em>The @foliobot can beautify your large Telegram post with the pretty pagination keyboard instead the sad "More..".</em>  ¶  <strong>How to use?</strong>  First you needto press <code>Start </code>in @foliobot chat. And get a Telegraph account (bot make it automatically).  ¶  Then you can start in this several ways.  ¶  <strong>First step</strong>  1. Send any text above 600 signs lenght in @foliobot chat.  2. Forward large message from any chat to @foliobot.  3. Send command <code>/create</code> in @foliobot chat and follow the instructions.  4. Send Telegraph link in @foliobot chat.  ¶`  
 let strF = `<img src="https://github.com/alexeiaccio/foliobot/raw/master/app/public/images/logo.png"/>`  
+let strH = `<strong>@foliobot for Telegram</strong> ¶  <em>﻿Here is a @foliobot — Telegram bot for messaging with pagination.</em>  ¶  <img src="https://github.com/alexeiaccio/foliobot/raw/master/app/public/images/logo.png"/>  ¶  <em>The @foliobot can beautify your large Telegram post with the pretty pagination keyboard instead the sad "More..".</em>  ¶  <strong>How to use?</strong>  First you needto press <code>Start </code>in @foliobot chat. And get a Telegraph account (bot make it automatically).  ¶  Then you can start in this several ways.  ¶ <strong>First step</strong>  1. Send any text above 600 signs lenght in @foliobot chat.  2. Forward large message from`
 
 const findBreakTag = str => {  
   matchEnd = endRegExp.exec(str)
@@ -30,13 +31,14 @@ const isImg = (str) => {
     strs.push(`${matchImg[1] ? matchImg[1] : '<em>Image #' + i + ': </em>'}<a href='${matchImg[3]}'>&#8204;</a>`)
     index = str.indexOf(matchImg[2])
     lastImg = matchImg[2].length
+    console.log(matchImg[2].length)
     i++
   }
   strs.push(`${str.slice(index+lastImg)}`)
   return strs
 }
 
-//isImg(strB)
+console.log(isImg(strH))
 
 const getImg = (str, i) => {
   let imgs = isImg(str)

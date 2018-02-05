@@ -9,16 +9,16 @@ const bot = require('./bot')
 // EXPRESS APP
 const PORT = process.env.PORT || 5000
 
-if (app.get('env') === 'development') {
-  const browserSync = require('browser-sync')
-  const bs = browserSync.create()
-  bs.watch("**/*.sass").on("change", bs.reload)
-  bs.watch("**/*.pug").on("change", bs.reload)
-  bs.watch("**/*.js").on("change", bs.reload)
-  bs.watch("**/*.md").on("change", bs.reload)
-  bs.init({ logSnippet: false })
-  app.use(require('connect-browser-sync')(bs, { injectHead: true }))
-}
+//if (app.get('env') === 'development') {
+//  const browserSync = require('browser-sync')
+//  const bs = browserSync.create()
+//  bs.watch("**/*.sass").on("change", bs.reload)
+//  bs.watch("**/*.pug").on("change", bs.reload)
+//  bs.watch("**/*.js").on("change", bs.reload)
+//  bs.watch("**/*.md").on("change", bs.reload)
+//  bs.init({ logSnippet: false })
+//  app.use(require('connect-browser-sync')(bs, { injectHead: true }))
+//}
 
 app.set('port', PORT)  
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
@@ -34,7 +34,8 @@ mongoose.connect(uri, {useMongoClient: true}, (err, res) => {
   }
 }).then(client => {
   const session = new MongoSession(client, {
-    ttl: 3600
+    ttl: 3600,
+    getSessionKey: (ctx) => ctx.from && `${ctx.from.id}`
   })
   // BOT
   bot.use(
