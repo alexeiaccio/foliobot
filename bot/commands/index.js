@@ -9,8 +9,19 @@ const helpHandler = require('./help-handler')
 const createHandler = require('./create-handler')
 
 // Commands
-composer.command('start', startHandler)
+composer.command('start', (ctx) => {
+  ctx.session.pages = ctx.session.pages || []
+  return ctx.reply(`Pages: <b>${ctx.session.pages}</b>`)
+})
 composer.command('help', helpHandler)
 composer.command('create', createHandler)
+
+// Session test
+composer.command('session', ({ session, reply }) => {
+  session.counter = session.counter || 0
+  session.counter++
+  return reply(`Message counter:${session.counter}`)
+})
+composer.command('stats', ({ reply, session, from }) => reply(`${session.counter} messages from ${from.username}`))
 
 module.exports = composer

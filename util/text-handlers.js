@@ -1,21 +1,31 @@
 const PAGE_LENGHT = 600
 
-let imgRegExp = /<img\s*?src="(.*?)"\/>/
+let imgRegExp = /(?:(.*?)(<img\s*?src="(.*?)"\/>))[<img]?/g
 let endRegExp = /(<(\/??)(\w+)[\s.*]?>)[^>]*?$/
 let startRegExp = /^.*?[^<]?(<(\/??)(\w+).*?>)/
 
-const findBreakTag = str => {  
+const findBreakTag = (str) => {  
   matchEnd = endRegExp.exec(str)
-  matchStart = startRegExp.exec(str)  
-  if (matchEnd[2] !== '/') str += `</${matchEnd[3]}>`
-  if (matchStart[2] === '/') str = `<${matchStart[3]}>` + str
+  matchStart = startRegExp.exec(str)
+  if(matchEnd !== null || matchStart !== null) {
+    if (matchEnd[2] !== '/') str += `</${matchEnd[3]}>`
+    if (matchStart[2] === '/') str = `<${matchStart[3]}>` + str
+  }
   return str
 }
 
-const getImg = (str) => {
-  matchImg = imgRegExp.exec(str)
-  let index = str.indexOf(matchImg[0])
-  return `${str.slice(0, index)}<a href='${matchImg[1]}'>&#8204;</a>${str.slice(index+matchImg[0].length)}`  
+const isImg = (str) => {
+  let matchImg
+  let strs = []
+  let index, i, lastImg = 0
+  while ((matchImg = imgRegExp.exec(str)) !== null) {
+    strs.push(`${matchImg[1] ? matchImg[1] : '<em>Image #' + i + ': </em>'}<a href='${matchImg[3]}'>&#8204;</a>`)
+    index = str.indexOf(matchImg[2])
+    lastImg = matchImg[2].length
+    i++
+  }
+  strs.push(findBreakTag(`${str.slice(index+lastImg)}`))
+  return strs
 }
 
 const getMaxPage = (text) => {
@@ -32,20 +42,12 @@ const getPart = (text) => {
     let part = wordArray
       .slice( i < 1 ? 0 : count*(i), count*(i + 1))
       .join(' ')
-    parts.push(part)
+    parts.push(...isImg(part))
   }
+  if (parts[parts.length-1] === '') parts.pop()
   return parts
 }
 
-const getText = (text, index) => {
-  let parts = getPart(text)
-  part = parts[(index - 1)]
-  if(imgRegExp.exec(part)) {
-    return getImg(findBreakTag(part))
-  } 
-  
-  return findBreakTag(parts[(index - 1)])
-}
 
 const getString = text => {
   let brRegExp = /(<br\/>)+/g
@@ -56,8 +58,31 @@ const getString = text => {
     .replace(/<\/?p>/g, ' ')
 }
 
+// Test sesssion
+
+const getPage = (ctx, text) => {
+  let id = ctx.update.callback_query.inline_message_id
+  let current = ctx.state.current
+  let newSession = ctx.session.pages.slice()
+  let key = 'id'
+  let values = ctx.session.pages.map(obj => ~Object.keys(obj).indexOf(key) && obj[key]).filter(v => v)
+  if (ctx.session.pages.length == 0 || values[0] !== id) {
+    let parts = getPart(text)
+    let count = parts.length
+    let newPage = {
+      id,
+      count,
+      parts
+    }    
+    newSession.push(newPage)
+  }
+  ctx.session.pages = newSession
+  let pageIndex = ctx.session.pages.findIndex(obj => ~Object.keys(obj).indexOf(key) && obj[key] === id)
+  return pageIndex
+}
+
 module.exports = {
-  getMaxPage,
-  getText,
-  getString
+  getPart,
+  getString,
+  getPage
 }
