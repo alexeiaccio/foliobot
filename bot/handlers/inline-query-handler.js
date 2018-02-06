@@ -8,7 +8,8 @@ const matchUrl = require('../../util/match-url')
   
 const inlineQueryHandler = (ctx) => {
   let inlineQuery = ctx.update.inline_query
-  let query = inlineQuery.query
+  let query = inlineQuery.query  
+  ctx.session.pages = ctx.session.pages || []
   if(query.length > 0) {
     let thatPath = ''
     let currentPage
@@ -28,6 +29,8 @@ const inlineQueryHandler = (ctx) => {
       text += getString(jsonxml(page.content))
       let pages = getPart(text)
       let maxPage = pages.length
+
+      //ctx.session.pages = pages
       // Let's return a single tooltip
       return ctx.answerInlineQuery(
         [{
@@ -45,7 +48,7 @@ const inlineQueryHandler = (ctx) => {
           cache_time: 800
         }
       )
-    })  
+    }).then((ctx) => console.log(ctx))
   }
 }
 

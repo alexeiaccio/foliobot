@@ -1,8 +1,22 @@
 const PAGE_LENGHT = 600
 
-let imgRegExp = /(?:(.*?)(<img\s*?src="(.*?)"\/>))[<img]?/g
 let endRegExp = /(<(\/??)(\w+)[\s.*]?>)[^>]*?$/
 let startRegExp = /^.*?[^<]?(<(\/??)(\w+).*?>)/
+
+const getString = (text) => {
+  let brRegExp = /(<br\/>)+/g
+  let breakRegExp = /(\n)+/g  
+  return text
+    .replace(brRegExp, ' ')
+    .replace(breakRegExp, ' ¶ ')
+    .replace(/<\/?p>/g, '¶¶')
+}
+
+const reString = (text) => {
+  return text
+    .replace(/\¶\¶+/g, '\n')
+    .replace(/\¶\s/g, '¶\n')
+}
 
 const findBreakTag = (str) => {  
   matchEnd = endRegExp.exec(str)
@@ -12,20 +26,6 @@ const findBreakTag = (str) => {
     if (matchStart[2] === '/') str = `<${matchStart[3]}>` + str
   }
   return str
-}
-
-const isImg = (str) => {
-  let matchImg
-  let strs = []
-  let index, i, lastImg = 0
-  while ((matchImg = imgRegExp.exec(str)) !== null) {
-    strs.push(`${matchImg[1] ? matchImg[1] : '<em>Image #' + i + ': </em>'}<a href='${matchImg[3]}'>&#8204;</a>`)
-    index = str.indexOf(matchImg[2])
-    lastImg = matchImg[2].length
-    i++
-  }
-  strs.push(findBreakTag(`${str.slice(index+lastImg)}`))
-  return strs
 }
 
 const getMaxPage = (text) => {
@@ -42,24 +42,13 @@ const getPart = (text) => {
     let part = wordArray
       .slice( i < 1 ? 0 : count*(i), count*(i + 1))
       .join(' ')
-    parts.push(...isImg(part))
+    parts.push(reString(findBreakTag(part)))
   }
   if (parts[parts.length-1] === '') parts.pop()
   return parts
 }
 
-
-const getString = text => {
-  let brRegExp = /(<br\/>)+/g
-  let breakRegExp = /(\n)+/g  
-  return text
-    .replace(brRegExp, '¶')
-    .replace(breakRegExp, ' ¶ ')
-    .replace(/<\/?p>/g, ' ')
-}
-
 // Test sesssion
-
 const getPage = (ctx, text) => {
   let id = ctx.update.callback_query.inline_message_id
   let current = ctx.state.current

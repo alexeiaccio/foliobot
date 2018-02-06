@@ -29,7 +29,6 @@ const callbackQueryHandler = new Router(({ callbackQuery }) => {
 callbackQueryHandler.on('turn', (ctx) => {
   let thatPath = ctx.state.path
   let currentPage = ctx.state.current  
-  console.log(ctx.session)
   ctx.session.pages = ctx.session.pages || []
   client.getPage(thatPath, true)
   .then(page => {
@@ -41,8 +40,8 @@ callbackQueryHandler.on('turn', (ctx) => {
     let index = getPage(ctx, text)
     let maxPage = ctx.session.pages[index].count
     let paginatedText = maxPage>1 
-    ? ctx.session.pages[index].parts[currentPage-1]
-    : text
+      ? ctx.session.pages[index].parts[currentPage-1]
+      : text
 
     let editOptions = Object.assign({}, 
       { reply_markup: getPagination(`${thatPath}?${currentPage}`, maxPage) },

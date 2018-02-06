@@ -16,21 +16,26 @@ var process_to_xml = function(node_data,options){
 	tag = tag.replace(element_replace, '_');
     }
     var node = []
-    if(level <= 3) {
+
+    if (level <= 3) {
+      if (tag === 'b' || tag === 'strong' || tag === 'i' || tag === 'em' || tag === 'a' || tag === 'code' || tag === 'pre') {
+        thatTag = tag
+      } else {
+        thatTag = 'p'
+        attributes = ''
+      }
       node.push(indent);
       node.push('<');
-      node.push(tag);
+      node.push(thatTag);
       node.push(attributes || '');
+      node.push('>');
       if(content && content.length > 0) {
-        node.push('>');
         node.push(content);
         hasSubNodes && node.push(indent);
-        node.push('</');
-        node.push(tag);
-        node.push('>');
-      } else {
-        node.push('/>');
-      }
+      } 
+      node.push('</');
+      node.push(thatTag);
+      node.push('>');      
     } else {
       node.push(content);
     }
