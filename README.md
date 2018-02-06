@@ -53,3 +53,8 @@ If you forward this folio from the menu it have been forwarded with current page
 ## Donate
 
 [![Paypal](https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_74x46.jpg)](https://www.paypal.me/alexeiaccio/5usd)
+
+[![Patreon](https://c5.patreon.com/external/logo/downloads_wordmark_navy.png)](https://www.patreon.com/bePatron?u=8394686)
+
+[![Liberpay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/alexei.accio/donate)
+
