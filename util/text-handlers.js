@@ -1,15 +1,15 @@
 const PAGE_LENGHT = 600
 
-let endRegExp = /(<(\/??)(\w+)[\s.*]?>)[^>]*?$/
-let startRegExp = /^.*?[^<]?(<(\/??)(\w+).*?>)/
-
 const getString = (text) => {
   let brRegExp = /(<br\/>)+/g
-  let breakRegExp = /(\n)+/g  
+  let breakRegExp = /(\n)+/g 
   return text
     .replace(brRegExp, ' ')
     .replace(breakRegExp, ' ¶ ')
     .replace(/<\/?p>/g, '¶¶')
+    .replace(/<\/em>/g, '</em>¶¶')
+    .replace(/[<strong><]\/?a\s(?:href.+?)>/g, '')
+    .replace(/<\/a>/g, '')
 }
 
 const reString = (text) => {
@@ -18,7 +18,9 @@ const reString = (text) => {
     .replace(/\¶\s/g, '¶\n')
 }
 
-const findBreakTag = (str) => {  
+const findBreakTag = (str) => {
+  let endRegExp = /(<(\/??)(\w+)[\s.*]?>)[^>]*?$/
+  let startRegExp = /^.*?[^<]?(<(\/??)(\w+).*?>)/
   matchEnd = endRegExp.exec(str)
   matchStart = startRegExp.exec(str)
   if(matchEnd !== null || matchStart !== null) {

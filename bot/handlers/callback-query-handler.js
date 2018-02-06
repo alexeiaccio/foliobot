@@ -42,7 +42,7 @@ callbackQueryHandler.on('turn', (ctx) => {
     let paginatedText = maxPage>1 
       ? ctx.session.pages[index].parts[currentPage-1]
       : text
-
+    console.log(paginatedText)
     let editOptions = Object.assign({}, 
       { reply_markup: getPagination(`${thatPath}?${currentPage}`, maxPage) },
       options.parse_mode
