@@ -16,21 +16,30 @@ var process_to_xml = function(node_data,options){
 	tag = tag.replace(element_replace, '_');
     }
     var node = []
-    if(level <= 3) {
+
+    if (level <= 3) {
+      if (tag === 'b' || tag === 'strong' || tag === 'i' || tag === 'em' || tag === 'a' || tag === 'code' || tag === 'pre') {
+        thatTag = tag
+      } else if (tag === 'h3' || tag === 'h4') {
+        thatTag = 'strong'
+      } else if (tag === 'li') {
+        thatTag = 'em'
+      } else {
+        thatTag = 'p'
+        attributes = ''
+      }
       node.push(indent);
       node.push('<');
-      node.push(tag);
+      node.push(thatTag);
       node.push(attributes || '');
+      node.push('>');
       if(content && content.length > 0) {
-        node.push('>');
         node.push(content);
         hasSubNodes && node.push(indent);
-        node.push('</');
-        node.push(tag);
-        node.push('>');
-      } else {
-        node.push('/>');
-      }
+      } 
+      node.push('</');
+      node.push(thatTag);
+      node.push('>');      
     } else {
       node.push(content);
     }
@@ -122,20 +131,6 @@ var process_to_xml = function(node_data,options){
 
   }(node_data, 0, 0))
 };
-
-
-var xml_header = function(standalone) {
-  var ret = ['<?xml version="1.0" encoding="utf-8"'];
-
-  if(standalone) {
-    ret.push(' standalone="yes"');
-  }
-
-  ret.push('?>');
-
-  return ret.join('');
-};
-
 module.exports = function(obj,options){
 
   var Buffer = this.Buffer || function Buffer () {};
@@ -147,36 +142,10 @@ module.exports = function(obj,options){
       return false;
     }
   }
-
-  var xmlheader = '';
-  var docType = '';
-  if(options) {
-    if(typeof options == 'object') {
-      // our config is an object
-
-      if(options.xmlHeader) {
-        // the user wants an xml header
-        xmlheader = xml_header(!!options.xmlHeader.standalone);
-      }
-
-      if(typeof options.docType != 'undefined') {
-        docType = '<!DOCTYPE '+options.docType+'>'
-      }
-    } else {
-      // our config is a boolean value, so just add xml header
-      xmlheader = xml_header();
-    }
-  }
+  
   options = options || {}
 
-  var ret = [
-    xmlheader,
-    (options.prettyPrint && docType ? '\n' : ''),
-  docType,
-    process_to_xml(obj,options)
-  ];
-
-  return ret.join('');
+  return process_to_xml(obj,options);
 }
 
 module.exports.json_to_xml=
@@ -192,10 +161,3 @@ function esc(str){
       .replace(/"/g, '&quot;')
       .replace(not_safe_in_xml, '');
 }
-
-module.exports.cdata = cdata;
-
-function cdata(str){
-  if(str) return "<![CDATA["+str.replace(/]]>/g,'')+']]>';
-  return "<![CDATA[]]>";
-};

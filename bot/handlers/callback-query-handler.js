@@ -27,10 +27,13 @@ const callbackQueryHandler = new Router(({ callbackQuery }) => {
 })
 
 callbackQueryHandler.on('turn', (ctx) => {
+  let id = ctx.update.callback_query.inline_message_id
   let thatPath = ctx.state.path
   let currentPage = ctx.state.current  
-  console.log(ctx.session)
   ctx.session.pages = ctx.session.pages || []
+  if(ctx.session.pages.lenght > 0) {
+    console.log('Woop!')
+  }
   client.getPage(thatPath, true)
   .then(page => {
     let text = ''
@@ -41,30 +44,27 @@ callbackQueryHandler.on('turn', (ctx) => {
     let index = getPage(ctx, text)
     let maxPage = ctx.session.pages[index].count
     let paginatedText = maxPage>1 
-    ? ctx.session.pages[index].parts[currentPage-1]
-    : text
-
+      ? ctx.session.pages[index].parts[currentPage-1]
+      : text
+    
     let editOptions = Object.assign({}, 
       { reply_markup: getPagination(`${thatPath}?${currentPage}`, maxPage) },
       options.parse_mode
     )    
-    let additionOptions = Object.assign({}, 
-      { reply_markup: getOptions(`${thatPath}?${currentPage}`, maxPage) },
-      options.parse_mode
-    )    
+
     if (currentPage !== previousPage) {
       return ctx.editMessageText(
         paginatedText, editOptions
       ).catch(() => undefined), 
       previousPage = currentPage
     } else if (!isAddition) {
-      return ctx.editMessageText(
-        paginatedText, additionOptions
+      return ctx.editMessageReplyMarkup(
+        getOptions(`${thatPath}?${currentPage}`, maxPage)
       ).catch(() => undefined),
       isAddition = !isAddition
     } else {
-      return ctx.editMessageText(
-        paginatedText, editOptions
+      return ctx.editMessageReplyMarkup(
+        getPagination(`${thatPath}?${currentPage}`, maxPage)
       ).catch(() => undefined),
       isAddition = !isAddition
     }

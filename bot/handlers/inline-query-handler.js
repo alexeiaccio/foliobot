@@ -8,7 +8,8 @@ const matchUrl = require('../../util/match-url')
   
 const inlineQueryHandler = (ctx) => {
   let inlineQuery = ctx.update.inline_query
-  let query = inlineQuery.query
+  let query = inlineQuery.query  
+  ctx.session.pages = ctx.session.pages || []
   if(query.length > 0) {
     let thatPath = ''
     let currentPage
@@ -19,6 +20,7 @@ const inlineQueryHandler = (ctx) => {
       currentPage = parseInt(matchUrl.getQuery(query))
       thatPath = matchUrl.getBase(query)
     } else thatPath = query, currentPage = 1
+
     client.getPage(thatPath, true)
     .then(page => {
       let text = ''
@@ -28,6 +30,8 @@ const inlineQueryHandler = (ctx) => {
       text += getString(jsonxml(page.content))
       let pages = getPart(text)
       let maxPage = pages.length
+
+      ctx.session.pages = pages
       // Let's return a single tooltip
       return ctx.answerInlineQuery(
         [{
@@ -35,6 +39,7 @@ const inlineQueryHandler = (ctx) => {
           id: inlineQuery.id, 
           title: !page.title.includes('FolioBot') ? page.title : 'Page me!', 
           description: page.description,
+          thumb_url: 'https://github.com/alexeiaccio/foliobot/raw/master/app/public/images/logo.png',
           input_message_content: Object.assign({},
             { message_text: pages[currentPage - 1] },
             options.parse_mode
@@ -45,7 +50,30 @@ const inlineQueryHandler = (ctx) => {
           cache_time: 800
         }
       )
-    })  
+    }).catch((err) => {
+      if (err.toString().search(/PAGE/)) {
+        title = `Page not found.`
+        description = `Try other pathway...`
+      } else {
+        title = 'Error...'
+        description = `Something is wrong. ${err}`
+      }
+      return ctx.answerInlineQuery(
+        [{
+          type: 'article',
+          id: inlineQuery.id, 
+          title: title, 
+          description: description,
+          input_message_content: Object.assign({},
+            { message_text: `<b>${title}</b> ${description}` },
+            options.parse_mode
+          )
+        }], 
+        {
+          cache_time: 200
+        }
+      )
+    })
   }
 }
 
