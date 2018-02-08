@@ -8,7 +8,6 @@ const getPagination = require('../helpers/get-pagination')
 const getOptions = require('../helpers/get-options')
 const options = require('../options')
 
-
 let previousPage = '1'
 let isAddition = false
 
