@@ -18,7 +18,7 @@ const callbackQueryHandler = new Router(({ callbackQuery }) => {
   }
   const parts = callbackQuery.data.split('?')
   return {
-    route: parts ? 'turn' : callbackQuery.data, //'woop',
+    route: parts ? 'turn' : callbackQuery.data,
     state: {
       path: parts[0],
       current: parseInt(parts[1]) || 1
@@ -31,21 +31,22 @@ callbackQueryHandler.on('turn', async function(ctx) {
   let thatPath = ctx.state.path
   let currentPage = ctx.state.current  
   
-  ctx.session.pages = ctx.session.pages || [] 
-  ctx.session.counter = ctx.session.counter || 0
-  ctx.session.ids = ctx.session.ids || {}
+  ctx.session.pages = ctx.session.pages || {} 
+
+  if (id in ctx.session.pages) { 
+    parts = ctx.session.pages[id]
+  } else {
+    let page = await client.getPage(thatPath, true)   
   
-  let page = await client.getPage(thatPath, true)   
-
-  let text = ''
-  if (!page.title.includes('FolioBot')) {
-    text += `<strong>${page.title}</strong> ¶ `    
+    let text = ''
+    if (!page.title.includes('FolioBot')) {
+      text += `<strong>${page.title}</strong> ¶ `    
+    }
+    text += getString(jsonxml(page.content))
+    let parts = getPart(text)
+  
+    Object.assign( ctx.session.pages, { [id]: parts } )
   }
-  text += getString(jsonxml(page.content))
-  let parts = getPart(text)
-
-  Object.assign( ctx.session.ids, { [id]: parts } )
-  console.log(ctx.session.ids)
 
   let maxPage = parts.length
   paginatedText = parts[currentPage-1]
@@ -73,17 +74,6 @@ callbackQueryHandler.on('turn', async function(ctx) {
   }
 })
 
-callbackQueryHandler.on('woop', (ctx) => {
-  if(!ctx.session.counter) { ctx.session.counter = 0 }
-  ctx.session.ids = ctx.session.ids || {}
-  let key = ctx.session.counter
-  let id = ctx.update.callback_query.id
-  console.log(ctx.session.counter, ctx.session.ids)
-  Object.assign( ctx.session.ids, { [id]: id } )
-  ctx.session.counter++
-})
-
 callbackQueryHandler.otherwise((ctx) => { ctx.editMessageText(`Woop!`) })
-
 
 module.exports = callbackQueryHandler
