@@ -5,11 +5,14 @@ const jsonxml = require('../../util/json-to-xml')
 const getPagination = require('../helpers/get-pagination')
 const options = require('../options')
 const matchUrl = require('../../util/match-url')
+
+const getPagesHandle = (path) => {
+  
+}
   
 const inlineQueryHandler = (ctx) => {
   let inlineQuery = ctx.update.inline_query
-  let query = inlineQuery.query  
-  ctx.session.pages = ctx.session.pages || []
+  let query = inlineQuery.query
   if(query.length > 0) {
     let thatPath = ''
     let currentPage
@@ -28,11 +31,15 @@ const inlineQueryHandler = (ctx) => {
         text += `<strong>${page.title}</strong> ¶ `    
       }
       text += getString(jsonxml(page.content))
-      let pages = getPart(text)
-      let maxPage = pages.length
-
-      ctx.session.pages = pages
-      // Let's return a single tooltip
+      
+      return result = {
+        title: page.title,
+        description: page.description,
+        parts: getPart(text)
+      }
+    })
+    .then(result => {
+      let page = result
       return ctx.answerInlineQuery(
         [{
           type: 'article',
@@ -41,14 +48,12 @@ const inlineQueryHandler = (ctx) => {
           description: page.description,
           thumb_url: 'https://github.com/alexeiaccio/foliobot/raw/master/app/public/images/logo.png',
           input_message_content: Object.assign({},
-            { message_text: pages[currentPage - 1] },
+            { message_text: page.parts[currentPage - 1] },
             options.parse_mode
           ),
-          reply_markup: getPagination(`${query}?1`, maxPage)
+          reply_markup: getPagination(`${query}?1`, page.parts.length)
         }], 
-        {
-          cache_time: 800
-        }
+        { cache_time: 800 }
       )
     }).catch((err) => {
       if (err.toString().search(/PAGE/)) {

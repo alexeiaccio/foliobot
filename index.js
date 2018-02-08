@@ -1,8 +1,5 @@
 const mongoose = require("mongoose")
 const MongoSession = require('telegraf-session-mongo')
-const Router = require('telegraf/router')
-const Extra = require('telegraf/extra')
-
 const app = require('./app')
 const bot = require('./bot')
 
