@@ -14,7 +14,7 @@ const inlineQueryHandler = new Router(async function({ inlineQuery }) {
   }
   let thatPath = ''
   let currentPage
-  if(query.length > 2) {
+  if(query.length > 0) {
     if (query.indexOf('http') == 0) {
       let pathRegExp = /(http[s]?:\/\/)?([^\/\s]+\/)(.*)/g
       thatPath = pathRegExp.exec(query)[3]
@@ -37,17 +37,14 @@ const inlineQueryHandler = new Router(async function({ inlineQuery }) {
     text += getString(jsonxml(page.content))      
     let parts = getPart(text)
 
-    ctx.session.iqa = ctx.session.iqa || {}
-    Object.assign( ctx.session.iqa, { parts: parts } )    
-    console.log(ctx.session.iqa.parts.length)
-
     return {
       route: 'answer',
       state: {
         query: query,
-        path: thatPath,
         current: currentPage,
-        parts: parts
+        parts: parts,
+        title: page.title,
+        description: page.description
       }
     }
   } catch(e) {
@@ -63,16 +60,17 @@ const inlineQueryHandler = new Router(async function({ inlineQuery }) {
 inlineQueryHandler.on('answer', (ctx) => {
   let inlineQuery = ctx.update.inline_query
   let query = ctx.state.query
-  let thatPath = ctx.state.path
   let currentPage = ctx.state.current   
   let parts = ctx.state.parts
+  let title = ctx.state.title
+  let description = ctx.state.description
 
   return ctx.answerInlineQuery(
     [{
       type: 'article',
       id: inlineQuery.id, 
-      title: !page.title.includes('FolioBot') ? page.title : 'Page me!', 
-      description: page.description,
+      title: !title.includes('FolioBot') ? title : 'Page me!', 
+      description: description,
       thumb_url: 'https://github.com/alexeiaccio/foliobot/raw/master/app/public/images/logo.png',
       input_message_content: Object.assign({},
         { message_text: parts[currentPage-1] },

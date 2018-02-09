@@ -31,7 +31,7 @@ mongoose.connect(uri, {useMongoClient: true}, (err, res) => {
   }
 }).then(client => {
   const session = new MongoSession(client, {
-    ttl: 3600,
+    //ttl: 3600,
     getSessionKey: (ctx) => ctx.from && `${ctx.from.id}`
   })
   // BOT

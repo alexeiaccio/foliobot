@@ -32,21 +32,20 @@ callbackQueryHandler.on('turn', async function(ctx) {
   
   ctx.session.pages = ctx.session.pages || {} 
 
-  if (id in ctx.session.pages) { 
-    parts = ctx.session.pages[id]
-  } else {
+  if (!(id in ctx.session.pages)) { 
     let page = await client.getPage(thatPath, true)   
-  
+    
     let text = ''
     if (!page.title.includes('FolioBot')) {
       text += `<strong>${page.title}</strong> ¶ `    
     }
     text += getString(jsonxml(page.content))
     let parts = getPart(text)
-  
+    
     Object.assign( ctx.session.pages, { [id]: parts } )
   }
-
+  
+  let parts = ctx.session.pages[id]
   let maxPage = parts.length
   paginatedText = parts[currentPage-1]
 
