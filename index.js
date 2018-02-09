@@ -1,8 +1,5 @@
 const mongoose = require("mongoose")
 const MongoSession = require('telegraf-session-mongo')
-const Router = require('telegraf/router')
-const Extra = require('telegraf/extra')
-
 const app = require('./app')
 const bot = require('./bot')
 
@@ -34,7 +31,7 @@ mongoose.connect(uri, {useMongoClient: true}, (err, res) => {
   }
 }).then(client => {
   const session = new MongoSession(client, {
-    ttl: 3600,
+    //ttl: 3600,
     getSessionKey: (ctx) => ctx.from && `${ctx.from.id}`
   })
   // BOT
