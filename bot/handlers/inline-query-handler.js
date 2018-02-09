@@ -45,7 +45,7 @@ const inlineQueryHandler = (ctx) => {
             { message_text: pages[currentPage - 1] },
             options.parse_mode
           ),
-          reply_markup: getPagination(`${query}?1`, maxPage)
+          reply_markup: getPagination(`${thatPath}?1`, maxPage)
         }], 
         {
           cache_time: 800

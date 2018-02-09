@@ -17,7 +17,7 @@ const callbackQueryHandler = new Router(({ callbackQuery }) => {
   }
   const parts = callbackQuery.data.split('?')
   return {
-    route: parts ? 'turn' : callbackQuery.data,
+    route: 'turn',
     state: {
       path: parts[0],
       current: parseInt(parts[1]) || 1
@@ -32,8 +32,11 @@ callbackQueryHandler.on('turn', async function(ctx) {
   
   ctx.session.pages = ctx.session.pages || {} 
 
-  if (!(id in ctx.session.pages)) { 
-    let page = await client.getPage(thatPath, true)   
+  if (!(id in ctx.session.pages)) {
+    const getPagePromise = client.getPage(thatPath, true)
+    try { getPagePromise.then() } catch(err) { console.log(err) } 
+
+    let page = await getPagePromise
     
     let text = ''
     if (!page.title.includes('FolioBot')) {
