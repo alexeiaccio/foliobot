@@ -13,7 +13,7 @@ const inlineQueryHandler = new Router(async function({ inlineQuery }) {
     return
   }
   let thatPath = ''
-  let currentPage
+  let currentPage = 1
   if(query.length > 0) {
     if (query.indexOf('http') == 0) {
       let pathRegExp = /(http[s]?:\/\/)?([^\/\s]+\/)(.*)/g
@@ -22,14 +22,14 @@ const inlineQueryHandler = new Router(async function({ inlineQuery }) {
       let parts = inlineQuery.query.split('?')
       currentPage = parseInt(parts[1]) || 1
       thatPath = parts[0]
-    } else thatPath = query, currentPage = 1
+    } else thatPath = query
   }
-
+  
   const getPageHandle = client.getPage(thatPath, true)
-
+  
   try {
     const page = await getPageHandle
-      
+    
     let text = ''
     if (!page.title.includes('FolioBot')) {
       text += `<strong>${page.title}</strong> ¶ `    
