@@ -16,8 +16,8 @@ const inlineQueryHandler = new Router(async function({ inlineQuery }) {
   let currentPage = 1
   if(query.length > 0) {
     if (query.indexOf('http') == 0) {
-      let pathRegExp = /(http[s]?:\/\/)?([^\/\s]+\/)(.*)/g
-      thatPath = pathRegExp.exec(query)[3]
+      let pathRegExp = /(?:http:\/\/telegra.ph\/)(.*)/g
+      thatPath = pathRegExp.exec(query)[1]
     } else if (query.indexOf('?')>=0) {
       let parts = inlineQuery.query.split('?')
       currentPage = parseInt(parts[1]) || 1
